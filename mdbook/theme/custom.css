@@ -1,0 +1,28 @@
+table {
+  width: 100%;
+  table-layout: fixed;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+table th,
+table td {
+  overflow-wrap: break-word;
+  padding: 0.5em;
+  text-align: left;
+}
+
+table th:nth-child(1),
+table td:nth-child(1) {
+  width: 20%;
+}
+
+table th:nth-child(2),
+table td:nth-child(2) {
+  width: 55%;
+}
+
+table th:nth-child(3),
+table td:nth-child(3) {
+  width: 15%;
+}

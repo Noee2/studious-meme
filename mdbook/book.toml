@@ -1,0 +1,8 @@
+[book]
+authors = ["Noé"]
+language = "en"
+src = "src"
+title = "Smart Contract Documentation"
+
+[output.html]
+additional-css = ["theme/custom.css"]
