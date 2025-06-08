@@ -2,4 +2,4 @@
 
 ## Compatibilities 
 - Solc version : 0.8.X
-- Chains used : Base, Sepolia Base
+- Chains used : Base, Sepolia Basee
