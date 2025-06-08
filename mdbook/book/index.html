@@ -31,6 +31,8 @@
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="theme/custom.css">
 
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <!-- Provide site root and default themes to javascript -->
         <script>
@@ -173,6 +175,109 @@
 <li>Solc version : 0.8.X</li>
 <li>Chains used : Base, Sepolia Base</li>
 </ul>
+<hr />
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p>Le protocole permet aux utilisateurs de fournir de la liquidité, d'effectuer des échanges, et de participer à des prédictions. Les frais générés par ces activités sont collectés et redistribués pour soutenir le système (notamment via les vaults) et récompenser les participants. Une composante de réseau offre des avantages supplémentaires.</p>
+<a href="assets/overview.png" target="_blank" title="Cliquez pour agrandir">
+  <img src="assets/overview.png" alt="Protocole Overview"  >
+</a>
+<p>\[ \mu = \frac{1}{N} \sum_{i=0} x_i \]</p>
+<p>Ce schéma illustre le fonctionnement global du protocole, qui s'articule autour de plusieurs fonctionnalités :</p>
+<ul>
+<li>
+<p><strong>1. Coffre-fort (Vault ERC-4626) :</strong></p>
+<ul>
+<li>
+<p>Les utilisateurs peuvent déposer des USDC dans des <strong>"Vault ERC-4626"</strong> représentant des catégories de prédictions.
+En retour, ils reçoivent des "Shares X" (jetons représentant leur part dans le vault). Ils peuvent retirer leurs USDC en échange de leurs "Shares X".</p>
+</li>
+<li>
+<p>Ce vault maintient une <strong>réserve fluctuant entre 2% et 10%</strong> de la valeur totale des USDC déposés afin de couvrir les risques liés aux prédictions (i.e bookmaker).</p>
+</li>
+<li>
+<p>Le vault est alimenté par les USDC générés par les fees collectés sur <strong>les gains des prédictions (~8%)</strong> .</p>
+</li>
+<li>
+<p>Le vault global est aussi alimenté par les frais collectés sur <strong>les gains des prédictions (~2%)</strong>.</p>
+</li>
+<li>
+<p>[<strong>A définir</strong>] : des frais de 0.2% sont prélevés sur les transactions withdraw basé sur le montant retiré ou sur le yield généré par le vault ?</p>
+</li>
+</ul>
+<br>
+<a href="assets/lp-vault.png" target="_blank" title="Cliquez pour agrandir" >
+<img src="assets/lp-vault.png" alt="LP vault Overview" >
+</a>
+<br>
+<br>
+</li>
+<li>
+<p><strong>2. Pool balancer (weighted pool) et swap</strong></p>
+<ul>
+<li>
+<p>Après avoir récupéré leurs "Shares X", les utilisateurs peuvent les échanger contre des BPT (balance pool token) en fournissant de la liquidité.<br />
+<strong>[?? et après ¿¿]</strong><br />
+Ils peuvent aussi effectuer des swap entre les différentes shares qu'ils possèdent.</p>
+</li>
+<li>
+<p>[<strong>A définir</strong>] : Il est possible de récupérer des fees sur les swaps effectués dans la pool balancer selon des critères à définir (e.g "minimum 1000$ de swap pour récupérer des fees", "if bot x% sur le bénéfice l'arbitrage réalisé") via le contrat hook.</p>
+</li>
+</ul>
+<details>
+<summary>Balancer Fees</summary>
+<ul>
+<li>Yield fees = 10% (rendement sur le prix des BPT pour LPs)
+<ul>
+<li>50% for balancer</li>
+<li>50% for us + LPs</li>
+</ul>
+</li>
+<li>Swap fees = 10%
+<ul>
+<li>50% for balancer</li>
+<li>50% for us + LPs</li>
+</ul>
+</li>
+</ul>
+</details>
+<blockquote>
+<p><em>Le système est ouvert au bot d'arbitrage qui pourront réguler les pools en se connectant à l'API balancer et au vault directement onchain</em></p>
+</blockquote>
+<br>
+  <a href="assets/balancer-integration.png" target="_blank" title="Cliquez pour agrandir" >
+<img src="assets/balancer-integration.png" alt="Balancer Overview" >
+</a>
+<br>
+<br>
+</li>
+<li>
+<p><strong>3. Prédictions</strong></p>
+<ul>
+<li>
+<p>Les utilisateurs peuvent participer à des <strong>"Predictions"</strong> en USDC.</p>
+<ul>
+<li>Différents systèmes de prédictions sont proposées et gérées par la partie centralisée du protocole.</li>
+</ul>
+</li>
+<li>
+<p>En cas de prédiction correcte, les utilisateurs remporte la somme gagnante en USDC <strong>- 20% fees pour le protocole</strong>.</p>
+</li>
+<li>
+<p>La somme gagnante est supportée par le vault lié à la prédiction, qui maintient une réserve pour couvrir les risques associés aux prédictions.</p>
+</li>
+</ul>
+  <br>
+  <a href="assets/predictions.png" target="_blank" title="Cliquez pour agrandir" >
+<img src="assets/predictions.png" alt="Predictions Overview" >
+</a>
+</li>
+</ul>
+<hr />
+<h2 id="admin-manager"><a class="header" href="#admin-manager">Admin manager</a></h2>
+<br>
+    <a href="assets/admin-manager.png" target="_blank" title="Cliquez pour agrandir" >
+    <img src="assets/admin-manager.png" alt="Predictions Overview" >
+    </a>
 
                     </main>
 
